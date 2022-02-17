@@ -62,7 +62,6 @@ set shiftwidth=4
 set expandtab
 set smartindent
 set exrc
-set hidden
 set relativenumber
 set noerrorbells
 set nowrap
@@ -101,6 +100,7 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 
 " unicode symbols
+let g:airline_symbols = {}
 let g:airline_left_sep = '»'
 let g:airline_left_sep = '▶'
 let g:airline_right_sep = '«'
@@ -126,6 +126,7 @@ let g:airline_symbols.linenr = ''
 " Always show tabs
 set showtabline=2
 
+" \ 'enablesigns': g:vimade_features.has_signs_priority, 
 " VIMADE
 let g:vimade = {
   \ "normalid": '',
@@ -139,7 +140,6 @@ let g:vimade = {
   \ "usecursorhold": 0, 
   \ "detecttermcolors": 0,
   \ 'enablescroll': 1, 
-  \ 'enablesigns': g:vimade_features.has_signs_priority, 
   \ 'signsid': 13100,
   \ 'signsretentionperiod': 4000,
   \ 'fademinimap': 1,

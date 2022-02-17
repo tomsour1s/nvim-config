@@ -6,7 +6,7 @@ require'nvim-treesitter.configs'.setup {
   sync_install = false,
 
   -- List of parsers to ignore installing
-  ignore_install = { "" },
+  ignore_install = { "norg" },
 
   highlight = {
     -- `false` will disable the whole extension
