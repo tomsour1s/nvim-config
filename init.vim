@@ -133,13 +133,13 @@ let g:vimade = {
   \ "basefg": '',
   \ "basebg": '',
   \ "fadelevel": 0.4,
-  \ "colbufsize": 15, "15 is the default for gui vim, 5 is the default for terminals and gvim
-  \ "rowbufsize": 15, "15 is the default for gui vim, 0 is the default for terminals and gvim
-  \ "checkinterval": 100, "100 is the default for gui vim, 500 is the default for terminals and neovim
-  \ "usecursorhold": 0, "0 is default, but will automatically set to 1 for Windows GVIM
+  \ "colbufsize": 15, 
+  \ "rowbufsize": 15, 
+  \ "checkinterval": 100, 
+  \ "usecursorhold": 0, 
   \ "detecttermcolors": 0,
-  \ 'enablescroll': 1, "1 is the default for gui vim, but will automatically set to 0 for terminals and Windows GVIM.
-  \ 'enablesigns': g:vimade_features.has_signs_priority, "enabled for vim/nvim versions that support sign priority.  Older vim/nvim versions may suffer performance issues
+  \ 'enablescroll': 1, 
+  \ 'enablesigns': g:vimade_features.has_signs_priority, 
   \ 'signsid': 13100,
   \ 'signsretentionperiod': 4000,
   \ 'fademinimap': 1,
@@ -148,6 +148,6 @@ let g:vimade = {
   \ 'groupscrollbind': 0,
   \ 'enablefocusfading': 0,
   \ 'enablebasegroups': 1,
-  \ 'enabletreesitter' : 0, "EXPERIMENTAL FEATURE - 0 is the default, enables support for treesitter highlights"
+  \ 'enabletreesitter' : 0, 
   \ 'basegroups': ['Folded', 'Search', 'SignColumn', 'LineNr', 'CursorLine', 'CursorLineNr', 'DiffAdd', 'DiffChange', 'DiffDelete', 'DiffText', 'FoldColumn', 'Whitespace']
 }
