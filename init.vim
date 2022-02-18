@@ -7,7 +7,6 @@ Plug 'preservim/nerdtree' | Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-fugitive'
-Plug 'TaDaa/vimade'
 
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/nvim-compe'
@@ -73,24 +72,31 @@ set nohlsearch
 set smartcase
 set splitbelow
 
+if !exists('g:os')
+    if has('win32') || has('win16')
+        let g:os = 'Windows'
+    else
+        let g:os = substitute(system('uname'), '\n', '', '')
+    endif
+endif
 
-
-"ColorScheme Config for brighter Colors"
-
+" Set Fancy Color but only applies to shitty Windows
+if g:os == 'Linux'
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
 "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
 "(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
-if (empty($TMUX))
-  if (has("nvim"))
-    "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-  endif
-  "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
-  "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
-  " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
-  if (has("termguicolors"))
-    set termguicolors
-  endif
+    if (empty($TMUX))
+      if (has("nvim"))
+        "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+        let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+      endif
+      "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+      "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+      " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+      if (has("termguicolors"))
+        set termguicolors
+      endif
+    endif
 endif
 
 autocmd vimenter * ++nested colorscheme gruvbox
@@ -128,28 +134,3 @@ let g:airline_symbols.linenr = ''
 " Always show tabs
 set showtabline=2
 
-" \ 'enablesigns': g:vimade_features.has_signs_priority, 
-" VIMADE
-let g:vimade = {
-  \ "normalid": '',
-  \ "normalncid": '',
-  \ "basefg": '',
-  \ "basebg": '',
-  \ "fadelevel": 0.4,
-  \ "colbufsize": 15, 
-  \ "rowbufsize": 15, 
-  \ "checkinterval": 100, 
-  \ "usecursorhold": 0, 
-  \ "detecttermcolors": 0,
-  \ 'enablescroll': 1, 
-  \ 'signsid': 13100,
-  \ 'signsretentionperiod': 4000,
-  \ 'fademinimap': 1,
-  \ 'fadepriority': 10,
-  \ 'groupdiff': 1,
-  \ 'groupscrollbind': 0,
-  \ 'enablefocusfading': 0,
-  \ 'enablebasegroups': 1,
-  \ 'enabletreesitter' : 0, 
-  \ 'basegroups': ['Folded', 'Search', 'SignColumn', 'LineNr', 'CursorLine', 'CursorLineNr', 'DiffAdd', 'DiffChange', 'DiffDelete', 'DiffText', 'FoldColumn', 'Whitespace']
-}
