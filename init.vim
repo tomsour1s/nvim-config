@@ -25,6 +25,8 @@ nmap ga <Plug>(EasyAlign)
 "Set space to leader key"
 nnoremap <space> <Nop>
 nnoremap <space> <F1>
+
+map <F11> :bp <CR>
 map <F12> :bn <CR>
 let mapleader= " "
 nnoremap <leader>ps :lua require('telescope.builtin').grep_string({ search = vim.fn.input("Grep For > ") })<CR>
