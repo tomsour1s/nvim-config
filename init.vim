@@ -8,11 +8,21 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-fugitive'
 Plug 'TaDaa/vimade'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 
 Plug 'neovim/nvim-lspconfig'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
+
 Plug 'hrsh7th/nvim-compe'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'tpope/vim-commentary'
+Plug 'ThePrimeagen/harpoon'
+Plug 'Yggdroot/indentLine'
+Plug 'moll/vim-bbye'
+Plug 'airblade/vim-gitgutter'
+Plug 'mattn/emmet-vim'
+Plug 'posva/vim-vue'
 call plug#end()
 
 
@@ -29,15 +39,31 @@ nnoremap <space> <F1>
 map <F11> :bp <CR>
 map <F12> :bn <CR>
 let mapleader= " "
-nnoremap <leader>ps :lua require('telescope.builtin').grep_string({ search = vim.fn.input("Grep For > ") })<CR>
+
+" Telescope
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>ps :lua require('telescope.builtin').grep_string({ search = vim.fn.input("Grep For > ") })<CR>
+
+" NERDTREE
+autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+" autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
+"    \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
+" autocmd BufWinEnter * if getcmdwintype() == '' | silent NERDTreeMirror | endif
+" autocmd VimEnter * NERDTree
 nnoremap <leader>n :NERDTreeFocus<CR>
+nnoremap <C-n> :NERDTree<CR>
+nnoremap <C-t> :NERDTreeToggle<CR>
+nnoremap <C-f> :NERDTreeFind<CR>
+nnoremap \d :bp<cr>:bd #<cr>
+
 nnoremap <leader>wp "*p <CR>
 nnoremap <leader>gps :! git config --global http.proxy http://10.171.251.29:8080 <CR>
 nnoremap <leader>gpu :! git config --global --unset http.proxy http://10.171.251.29:8080 <CR>
 nnoremap <F1>:bn <CR>
 nnoremap <leader>bp :bp <CR>
-
+nnoremap <leader>q :Bdelete<CR>
 
 nnoremap <C-j> <C-W>j
 nnoremap <C-k> <C-W>k
@@ -52,17 +78,22 @@ nnoremap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>
 nnoremap <silent> <C-n> <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
 nnoremap <silent> <C-p> <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
 
-
 lua require("compe-config")
 lua require("python-lsp")
 lua require("treesitter")
 
-" lua require("compe-config")
-
+ " lua require("compe-config")
+ "
+set cmdheight=2
 set tabstop=4 softtabstop=4
+set ts=4
+set noet
+set ai
 set shiftwidth=4
-set expandtab
+set noexpandtab
+set updatetime=300
 set smartindent
+set shortmess+=c
 set exrc
 set relativenumber
 set noerrorbells
@@ -72,9 +103,8 @@ set nu
 set nohlsearch
 set smartcase
 set splitbelow
-
-
-
+set encoding=UTF-8
+set imenu disable Help
 "ColorScheme Config for brighter Colors"
 
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
@@ -124,6 +154,14 @@ let g:airline_right_alt_sep = ''
 let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
+
+let g:indentLine_char = '|'
+let g:indentLine_enable = 1
+" let g:indentLine_color_term = 240
+" let g:indentLine_bgcolor_gui = '#3a8c7e'
+let g:indentLine_leadingSpaceEnabled = 1
+let g:indentLine_leadingSpaceChar = '.'
+set list
 
 " Always show tabs
 set showtabline=2

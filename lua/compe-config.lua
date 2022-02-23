@@ -30,7 +30,7 @@ require'compe'.setup {
 local t = function(str)
   return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
-
+00
 local check_back_space = function()
     local col = vim.fn.col('.') - 1
     if col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
@@ -68,4 +68,4 @@ end
 vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
-vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+-- vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
