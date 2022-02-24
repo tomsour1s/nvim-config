@@ -7,17 +7,18 @@ Plug 'preservim/nerdtree' | Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-fugitive'
-<<<<<<< HEAD
 Plug 'TaDaa/vimade'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
-=======
->>>>>>> 9e1c91c7f3c3575bcf1bdb4303172c810086f9d3
+
+" Plug 'prabirshrestha/vim-lsp'
+" Plug 'mattn/vim-lsp-settings'
 
 Plug 'neovim/nvim-lspconfig'
-Plug 'prabirshrestha/vim-lsp'
-Plug 'mattn/vim-lsp-settings'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/nvim-cmp'
 
-Plug 'hrsh7th/nvim-compe'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'tpope/vim-commentary'
 Plug 'ThePrimeagen/harpoon'
@@ -28,6 +29,10 @@ Plug 'mattn/emmet-vim'
 Plug 'posva/vim-vue'
 call plug#end()
 
+lua require("comp")
+" lua require("compe-config")
+lua require("python-lsp")
+lua require("treesitter")
 
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
@@ -48,7 +53,6 @@ nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>ps :lua require('telescope.builtin').grep_string({ search = vim.fn.input("Grep For > ") })<CR>
-
 " NERDTREE
 autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
 " autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
@@ -81,12 +85,8 @@ nnoremap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>
 nnoremap <silent> <C-n> <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
 nnoremap <silent> <C-p> <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
 
-lua require("compe-config")
-lua require("python-lsp")
-lua require("treesitter")
 
- " lua require("compe-config")
- "
+set completeopt=menu,menuone,noselect
 set cmdheight=2
 set tabstop=4 softtabstop=4
 set ts=4
@@ -106,13 +106,13 @@ set nu
 set nohlsearch
 set smartcase
 set splitbelow
-<<<<<<< HEAD
 set encoding=UTF-8
-set imenu disable Help
+set list
+" Always show tabs
+set showtabline=2
+
+
 "ColorScheme Config for brighter Colors"
-
-=======
-
 if !exists('g:os')
     if has('win32') || has('win16')
         let g:os = 'Windows'
@@ -123,7 +123,6 @@ endif
 
 " Set Fancy Color but only applies to shitty Windows
 if g:os == 'Linux'
->>>>>>> 9e1c91c7f3c3575bcf1bdb4303172c810086f9d3
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
 "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
 "(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
@@ -146,8 +145,8 @@ autocmd FileType python map <buffer> <F9> :w<CR>:exec '!python' shellescape(@%, 
 autocmd FileType python imap <buffer> <F9> <esc>:w<CR>:exec '!python' shellescape(@%, 1)<CR>
 autocmd Filetype python nnoremap <buffer> <F6> :w<CR>:sp term python "%"<CR>
 
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#formatter = 'unique_tail'
+" let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#tabline#formatter = 'unique_tail'
 
 " unicode symbols
 let g:airline_symbols = {}
@@ -179,8 +178,4 @@ let g:indentLine_enable = 1
 " let g:indentLine_bgcolor_gui = '#3a8c7e'
 let g:indentLine_leadingSpaceEnabled = 1
 let g:indentLine_leadingSpaceChar = '.'
-set list
-
-" Always show tabs
-set showtabline=2
 
