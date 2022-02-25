@@ -2,29 +2,48 @@ call plug#begin()
 Plug 'junegunn/vim-easy-align'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
+
+" Theme
 Plug 'morhetz/gruvbox'
+Plug 'NLKNguyen/papercolor-theme'
+
+" Sidebar
 Plug 'preservim/nerdtree' | Plug 'Xuyuanp/nerdtree-git-plugin'
+
+" Footerbar? :D
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'tpope/vim-fugitive'
-Plug 'TaDaa/vimade'
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 
+" Vim Plugin kleine Zeile links
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+
+" Plug 'TaDaa/vimade'
 " Plug 'prabirshrestha/vim-lsp'
 " Plug 'mattn/vim-lsp-settings'
 
+" Alles rund um die LSP-Config
+" Wenn ein LSP für eine Sprache nicht Funktioniert
+" immer per NPM mit dem G Flag installieren
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/nvim-cmp'
-
+Plug 'simrat39/rust-tools.nvim'
+" Analyisiert das Projekt und macht nices syntax highlighting
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
+" Bestes Tool um alles schnell zu kommentieren
 Plug 'tpope/vim-commentary'
+
 Plug 'ThePrimeagen/harpoon'
+
+" Zeigt das Indentlevel an, könnte auch Farbe
 Plug 'Yggdroot/indentLine'
+
+" Buffer easy zu machen, ohne das VIM sich direkt verpisst
 Plug 'moll/vim-bbye'
-Plug 'airblade/vim-gitgutter'
 Plug 'mattn/emmet-vim'
 Plug 'posva/vim-vue'
 call plug#end()
@@ -43,17 +62,23 @@ nmap ga <Plug>(EasyAlign)
 "Set space to leader key"
 nnoremap <space> <Nop>
 nnoremap <space> <F1>
+let mapleader= " "
 
+" Einfaches switchen zwischen zwei Buffern,
+" Funktioniert besser auf Windows als mit der 
+" Drecks Touchbar
 map <F11> :bp <CR>
 map <F12> :bn <CR>
-let mapleader= " "
 
 " Telescope
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>ps :lua require('telescope.builtin').grep_string({ search = vim.fn.input("Grep For > ") })<CR>
+
 " NERDTREE
+" Hier muss aber noch bisschen was gemacht werden
+" so geil läuft das noch nicht
 autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
 " autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
 "    \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
@@ -64,20 +89,25 @@ nnoremap <C-n> :NERDTree<CR>
 nnoremap <C-t> :NERDTreeToggle<CR>
 nnoremap <C-f> :NERDTreeFind<CR>
 nnoremap \d :bp<cr>:bd #<cr>
-
-nnoremap <leader>wp "*p <CR>
-nnoremap <leader>gps :! git config --global http.proxy http://10.171.251.29:8080 <CR>
-nnoremap <leader>gpu :! git config --global --unset http.proxy http://10.171.251.29:8080 <CR>
-nnoremap <F1>:bn <CR>
-nnoremap <leader>bp :bp <CR>
-nnoremap <leader>q :Bdelete<CR>
-
 nnoremap <C-j> <C-W>j
 nnoremap <C-k> <C-W>k
 nnoremap <C-h> <C-W>h
 nnoremap <C-l> <C-W>l
 
-" LSP config (the mappings used in the default file don't quite work right)
+" Sexy paste des Clipboards von nicht vim inhalten
+nnoremap <leader>wp "*p <CR>
+
+" Aktiviert den Proxy für VIM
+nnoremap <leader>gps :! git config --global http.proxy http://10.171.251.29:8080 <CR>
+nnoremap <leader>gpu :! git config --global --unset http.proxy http://10.171.251.29:8080 <CR>
+
+" Selbe wie F11 nur für den MAC
+nnoremap <F1>:bn <CR>
+nnoremap <leader>bp :bp <CR>
+nnoremap <leader>q :Bdelete<CR>
+
+
+" LSP config 
 nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
 nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
@@ -91,7 +121,6 @@ set cmdheight=2
 set tabstop=4 softtabstop=4
 set ts=4
 set noet
-set ai
 set shiftwidth=4
 set noexpandtab
 set updatetime=300
@@ -108,9 +137,7 @@ set smartcase
 set splitbelow
 set encoding=UTF-8
 set list
-" Always show tabs
-set showtabline=2
-
+set ai
 
 "ColorScheme Config for brighter Colors"
 if !exists('g:os')
@@ -140,7 +167,11 @@ if g:os == 'Linux'
     endif
 endif
 
-autocmd vimenter * ++nested colorscheme gruvbox
+" autocmd vimenter * ++nested colorscheme gruvbox
+" https://vimcolorschemes.com/nlknguyen/papercolor-theme
+autocmd vimenter * ++nested colorscheme papercolor
+
+
 autocmd FileType python map <buffer> <F9> :w<CR>:exec '!python' shellescape(@%, 1)<CR>
 autocmd FileType python imap <buffer> <F9> <esc>:w<CR>:exec '!python' shellescape(@%, 1)<CR>
 autocmd Filetype python nnoremap <buffer> <F6> :w<CR>:sp term python "%"<CR>
